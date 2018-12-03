@@ -17,6 +17,7 @@ public class BookDAOTest {
         book.setTypeId(1);
         book.setName("测试书籍");
         book.setAuthor("匿名");
+        book.setStock(100);
         System.out.println(bookDAO.insertBook(book));
     }
 
@@ -30,6 +31,7 @@ public class BookDAOTest {
         Book book = new Book();
         book.setId(40);
         book.setPrice(11.1);
+        book.setStock(99);
         bookDAO.updateBook(book);
     }
 

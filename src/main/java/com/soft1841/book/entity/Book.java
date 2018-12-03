@@ -1,6 +1,7 @@
 package com.soft1841.book.entity;
 
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -15,12 +16,12 @@ public class Book {
     private final SimpleDoubleProperty price = new SimpleDoubleProperty();
     private final SimpleStringProperty cover = new SimpleStringProperty("");
     private final SimpleStringProperty summary = new SimpleStringProperty("");
-
+    private final SimpleIntegerProperty stock = new SimpleIntegerProperty();
     public Book() {
 
     }
 
-    public Book(Long id, Long typeId, String name, String author, Double price, String cover, String summary) {
+    public Book(Long id, Long typeId, String name, String author, Double price, String cover, String summary,Integer stock) {
         setId(id);
         setTypeId(typeId);
         setName(name);
@@ -28,6 +29,7 @@ public class Book {
         setPrice(price);
         setCover(cover);
         setSummary(summary);
+        setStock(stock);
     }
 
     public long getId() {
@@ -112,5 +114,17 @@ public class Book {
 
     public void setSummary(String summary) {
         this.summary.set(summary);
+    }
+
+    public int getStock() {
+        return stock.get();
+    }
+
+    public SimpleIntegerProperty stockProperty() {
+        return stock;
+    }
+
+    public void setStock(int stock) {
+        this.stock.set(stock);
     }
 }

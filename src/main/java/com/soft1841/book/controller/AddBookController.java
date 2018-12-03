@@ -36,7 +36,7 @@ public class AddBookController implements Initializable {
     private ComboBox<Type> bookType;
 
     @FXML
-    private TextField bookName, bookAuthor, bookPrice, bookCover;
+    private TextField bookName, bookAuthor, bookPrice, bookCover,bookStock;
     @FXML
     private TextArea bookSummary;
 
@@ -75,13 +75,16 @@ public class AddBookController implements Initializable {
         String name = bookName.getText();
         String author = bookAuthor.getText();
         String price = bookPrice.getText();
+        String stock = bookStock.getText();
         String cover = bookCover.getText();
         String summary = bookSummary.getText();
+        System.out.println(stock);
         Book book = new Book();
         book.setTypeId(typeId);
         book.setName(name);
         book.setAuthor(author);
         book.setPrice(Double.parseDouble(price));
+        book.setStock(Integer.parseInt(stock));
         book.setCover(cover);
         book.setSummary(summary);
         long id = bookDAO.insertBook(book);

@@ -142,7 +142,7 @@ public class BookController implements Initializable {
                 deleteButton.setOnAction(event -> {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                     alert.setTitle("确认对话框");
-                    alert.setHeaderText("请确认");
+                    alert.setHeaderText("书名："+book.getName());
                     alert.setContentText("确定要删除这行记录吗?");
                     Optional<ButtonType> result = alert.showAndWait();
                     //点击了确认按钮，执行删除操作，同时移除一行模型数据
@@ -180,6 +180,7 @@ public class BookController implements Initializable {
                         book.setPrice(entity.getDouble("price"));
                         book.setCover(entity.getStr("cover"));
                         book.setSummary(entity.getStr("summary"));
+                        book.setStock(entity.getInt("stock"));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -197,6 +198,7 @@ public class BookController implements Initializable {
                     nameLabel.getStyleClass().add("font-title");
                     Label authorLabel = new Label("作者：" + book.getAuthor());
                     Label priceLabel = new Label("价格:" + book.getPrice());
+                    Label stockLabel = new Label("库存："+book.getStock());
                     ImageView bookImgView = new ImageView(new Image(book.getCover()));
                     bookImgView.setFitHeight(150);
                     bookImgView.setFitWidth(120);
@@ -204,7 +206,7 @@ public class BookController implements Initializable {
                     summaryLabel.setPrefWidth(400);
                     summaryLabel.setWrapText(true);
                     summaryLabel.getStyleClass().add("box");
-                    vBox.getChildren().addAll(nameLabel, authorLabel, priceLabel, bookImgView, summaryLabel);
+                    vBox.getChildren().addAll(nameLabel, authorLabel, priceLabel, stockLabel,bookImgView, summaryLabel);
                     Scene scene = new Scene(vBox, 640, 480);
                     //因为是一个新的窗口，需要重新读入一下样式表，这个界面就可以使用style.css样式表中的样式了
                     scene.getStylesheets().add("/css/style.css");
@@ -259,6 +261,7 @@ public class BookController implements Initializable {
             book.setName(entity.getStr("name"));
             book.setAuthor(entity.getStr("author"));
             book.setPrice(entity.getDouble("price"));
+            book.setStock(entity.getInt("stock"));
             bookData.add(book);
         }
         bookTable.setItems(bookData);

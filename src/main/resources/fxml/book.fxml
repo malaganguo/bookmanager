@@ -37,8 +37,13 @@
                 </cellValueFactory>
             </TableColumn>
             <TableColumn text="价格">
+            <cellValueFactory>
+                <PropertyValueFactory property="price"/>
+            </cellValueFactory>
+        </TableColumn>
+            <TableColumn text="库存">
                 <cellValueFactory>
-                    <PropertyValueFactory property="price"/>
+                    <PropertyValueFactory property="stock"/>
                 </cellValueFactory>
             </TableColumn>
         </columns>

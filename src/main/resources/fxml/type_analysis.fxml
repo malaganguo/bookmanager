@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
-    <Label text="图书类别统计分析" styleClass="font-title" AnchorPane.topAnchor="10"
+    <Label text="图书类别统计分析" styleClass="font-title"
+           AnchorPane.topAnchor="10"
            AnchorPane.leftAnchor="50"/>
+    <HBox spacing="20" AnchorPane.topAnchor="60" AnchorPane.leftAnchor="50">
+        <Button text="默认按钮" styleClass="btn-basic,green-theme,btn-radius-normal"/>
+        <Button text="百搭按钮" styleClass="btn-basic,blue-theme,btn-radius-large"/>
+        <Button text="暖色按钮" styleClass="btn-basic,warm-theme,btn-radius-large"/>
+        <Button text="导航菜单" styleClass="menu-btn"/>
+        <AnchorPane styleClass="box">
+            <Label text="标题标题标题标题标题标题标题标题标题标题标题标题"
+                   styleClass="font-title" wrapText="true"
+            maxWidth="80"/>
+        </AnchorPane>
+    </HBox>
 </AnchorPane>

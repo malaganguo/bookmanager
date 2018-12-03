@@ -12,6 +12,7 @@ public class TypeDAOImpl implements TypeDAO {
 
     @Override
     public Long insertType(Type type) throws SQLException {
+        //采用了另一种新增方法，可以返回插入记录的主键（Long类型）
         return Db.use().insertForGeneratedKey(
                 Entity.create("t_type")
                         .set("type_name", type.getTypeName())
@@ -25,19 +26,12 @@ public class TypeDAOImpl implements TypeDAO {
         );
     }
 
-    @Override
-    public int updateType(Type type) throws SQLException {
-        return Db.use().update(
-                Entity.create().set("type_name", type.getTypeName()), //修改的数据
-                Entity.create("t_type").set("id", type.getId()) //删除的where条件
-        );
-    }
 
     @Override
     public List<Entity> selectAllTypes() throws SQLException {
-        //采用默认的查询
-//        return Db.use().findAll("t_type");
-        //采用自定义查询语句查询
+        //1.采用默认的查询
+        //return Db.use().findAll("t_type");
+        //2.采用自定义查询语句查询
         return Db.use().query("SELECT * FROM t_type ");
     }
 

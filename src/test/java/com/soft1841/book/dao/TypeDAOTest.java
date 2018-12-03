@@ -25,14 +25,6 @@ public class TypeDAOTest {
     }
 
     @Test
-    public void updateType() throws SQLException {
-        Type type = new Type();
-        type.setId(9);
-        type.setTypeName("小说");
-        typeDAO.updateType(type);
-    }
-
-    @Test
     public void selectAllTypes() throws SQLException {
         List<Entity> typeList = typeDAO.selectAllTypes();
         typeList.forEach(entity -> System.out.println(entity));

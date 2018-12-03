@@ -20,6 +20,7 @@ public class BookDAOImpl implements BookDAO {
                         .set("price", book.getPrice())
                         .set("cover", book.getCover())
                         .set("summary", book.getSummary())
+                        .set("stock",book.getStock())
         );
     }
 
@@ -32,9 +33,10 @@ public class BookDAOImpl implements BookDAO {
 
     @Override
     public int updateBook(Book book) throws SQLException {
-        //只修改了图书的价格
+        //只修改了图书的价格和库存
         return Db.use().update(
-                Entity.create().set("price", book.getPrice()),
+                Entity.create().set("price", book.getPrice())
+                                .set("stock",book.getStock()),
                 Entity.create("t_book").set("id", book.getId())
         );
     }
