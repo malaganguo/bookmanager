@@ -17,6 +17,9 @@ public class BookDAOTest {
         book.setTypeId(1);
         book.setName("测试书籍");
         book.setAuthor("匿名");
+        book.setCover("https://img3.doubanio.com/view/photo/s_ratio_poster/public/p2511831665.jpg");
+        book.setPrice(68.8);
+        book.setSummary("测试书籍摘要测试书籍摘要测试书籍摘要测试书籍摘要测试书籍摘要");
         book.setStock(100);
         System.out.println(bookDAO.insertBook(book));
     }

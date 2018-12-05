@@ -1,8 +1,10 @@
 package com.soft1841.book.utils;
 
 import com.soft1841.book.dao.BookDAO;
+import com.soft1841.book.dao.ReaderDAO;
 import com.soft1841.book.dao.TypeDAO;
 import com.soft1841.book.dao.impl.BookDAOImpl;
+import com.soft1841.book.dao.impl.ReaderDAOImpl;
 import com.soft1841.book.dao.impl.TypeDAOImpl;
 
 /**
@@ -20,5 +22,9 @@ public class DAOFactory {
 
     public static BookDAO getBookDAOInstance() {
         return new BookDAOImpl();
+    }
+
+    public static ReaderDAO getReaderDAOInstance(){
+        return new ReaderDAOImpl();
     }
 }

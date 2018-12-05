@@ -25,6 +25,6 @@
             <Insets top="10" left="50" bottom="10" right="50"/>
         </padding>
     </VBox>
-    <Button text="确认" onAction="#addBook" styleClass="btn-radius-large,green-theme"
+    <Button text="确认" onAction="#addBook" styleClass="green-theme,btn-radius"
             AnchorPane.bottomAnchor="10" AnchorPane.leftAnchor="180" AnchorPane.rightAnchor="180"/>
 </AnchorPane>

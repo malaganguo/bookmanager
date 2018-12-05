@@ -1,10 +1,8 @@
 package com.soft1841.book.controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
@@ -42,6 +40,10 @@ public class MainController implements Initializable {
         switchView("book.fxml");
     }
 
+    public void viewBook() throws Exception{
+        switchView("view_book.fxml");
+    }
+
     public void listBookAnalysis() throws Exception {
         switchView("book_analysis.fxml");
     }
@@ -50,7 +52,7 @@ public class MainController implements Initializable {
         switchView("admin.fxml");
     }
 
-    public void listReader() throws Exception {
+    public void listReader() throws Exception{
         switchView("reader.fxml");
     }
 
@@ -59,8 +61,8 @@ public class MainController implements Initializable {
     }
 
     private void switchView(String fileName) throws Exception {
-        ObservableList<Node> list = mainContainer.getChildren();
-        mainContainer.getChildren().removeAll(list);
+        //清空原有内容
+        mainContainer.getChildren().clear();
         AnchorPane anchorPane = new FXMLLoader(getClass().getResource("/fxml/" + fileName)).load();
         mainContainer.getChildren().add(anchorPane);
     }

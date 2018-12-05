@@ -10,13 +10,13 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.soft1841.book.controller.BookController">
     <HBox alignment="BOTTOM_CENTER" AnchorPane.topAnchor="10" AnchorPane.leftAnchor="10" spacing="10">
-        <Button styleClass="btn-basic,btn-radius-large,green-theme" text="添加图书" onAction="#newBookStage"/>
-        <Button styleClass="btn-basic,btn-radius-large,blue-theme" text="导出数据" onAction="#export"/>
+        <Button styleClass="green-theme,btn-radius" text="添加图书" onAction="#newBookStage"/>
+        <Button styleClass="blue-theme,btn-radius" text="导出数据" onAction="#export"/>
     </HBox>
     <HBox alignment="CENTER" AnchorPane.topAnchor="60" AnchorPane.leftAnchor="10" spacing="10">
         <ComboBox promptText="选择图书类别" fx:id="typeComboBox" prefWidth="150"/>
         <TextField promptText="请输入关键词" fx:id="keywordsField"/>
-        <Button styleClass="btn-basic,btn-radius-normal,green-theme" text="搜索" onAction="#search"/>
+        <Button styleClass="green-theme" text="搜索" onAction="#search"/>
     </HBox>
     <TableView fx:id="bookTable" prefWidth="1000"
                AnchorPane.topAnchor="110" AnchorPane.leftAnchor="10">
