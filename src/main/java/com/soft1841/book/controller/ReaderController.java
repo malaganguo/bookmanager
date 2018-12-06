@@ -179,6 +179,7 @@ public class ReaderController implements Initializable {
                 emailField,mobileField,addBtn);
         Scene scene = new Scene(vBox,600,380);
         scene.getStylesheets().add("/css/style.css");
+        stage.getIcons().add(new Image("/img/logo.png"));
         stage.setScene(scene);
         stage.show();
         //点击新增按钮，将界面数据封装成一个Reader对象，写入数据库

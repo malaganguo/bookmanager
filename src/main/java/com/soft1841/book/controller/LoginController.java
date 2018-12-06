@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
@@ -31,6 +32,7 @@ public class LoginController {
             mainStage.setTitle("book manage system");
             mainStage.setMaximized(true);
             mainStage.setScene(scene);
+            mainStage.getIcons().add(new Image("/img/logo.png"));
             mainStage.show();
             Stage loginStage = (Stage) accountField.getScene().getWindow();
             loginStage.close();
