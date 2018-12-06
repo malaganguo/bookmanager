@@ -30,4 +30,4 @@
 - 读者信息
 ![](http://pj7ldvis7.bkt.clouddn.com/book/reader.png)
 - 新增读者
-![](http://pj7ldvis7.bkt.clouddn.com/book/addreader.png)
+![](http://pj7ldvis7.bkt.clouddn.com/book/%E6%96%B0%E5%A2%9E%E8%AF%BB%E8%80%85.png)
