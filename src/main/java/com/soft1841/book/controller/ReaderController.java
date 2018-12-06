@@ -83,7 +83,7 @@ public class ReaderController implements Initializable {
             Label mobileLabel = new Label(entity.getStr("mobile"));
             Label dateLabel = new Label(entity.getDate("join_date").toString());
             Button delBtn = new Button("删除");
-            delBtn.getStyleClass().addAll("warning-theme", "btn-radius");
+            delBtn.getStyleClass().add("warning-theme");
             rightBox.getChildren().addAll(nameLabel, departmentLabel,
                     emailLabel, mobileLabel, dateLabel, delBtn);
             //左右两个垂直布局加入水平布局
