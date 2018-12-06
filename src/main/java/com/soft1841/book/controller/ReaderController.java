@@ -53,8 +53,7 @@ public class ReaderController implements Initializable {
     //通过循环遍历readerList集合，创建Hbox来显示每个读者信息
     private void showReaders(List<Entity> readerList) {
         //移除之前的记录
-        ObservableList<Node> observableList = readerPane.getChildren();
-        readerPane.getChildren().removeAll(observableList);
+        readerPane.getChildren().clear();
         for (Entity entity : readerList) {
             HBox hBox = new HBox();
             hBox.setPrefSize(300, 240);
