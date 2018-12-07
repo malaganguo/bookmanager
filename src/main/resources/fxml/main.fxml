@@ -55,7 +55,7 @@
                             </VBox>
                         </TitledPane>
                         <TitledPane alignment="TOP_LEFT" text="借阅管理">
-                            <VBox minHeight="130" spacing="10" styleClass="dark-theme">
+                            <VBox minHeight="100" spacing="10" styleClass="dark-theme">
                                 <Button styleClass="menu-btn" text="借阅查询"/>
                                 <Button styleClass="menu-btn" text="统计分析"/>
                             </VBox>
@@ -75,7 +75,7 @@
             <!--滚动面板-->
             <ScrollPane  fitToWidth="true"  hbarPolicy="NEVER"
                          vbarPolicy="AS_NEEDED" styleClass="default-theme">
-                     <StackPane fx:id="mainContainer" styleClass="default-theme" minWidth="1060">
+                     <StackPane fx:id="mainContainer" styleClass="default-theme" minWidth="1060" minHeight="600">
                 <padding>
                     <Insets top="10" left="30" bottom="5" right="10"/>
                 </padding>

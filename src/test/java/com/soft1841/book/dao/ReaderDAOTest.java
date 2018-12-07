@@ -14,13 +14,25 @@ public class ReaderDAOTest {
     private ReaderDAO readerDAO = DAOFactory.getReaderDAOInstance();
 
     @Test
-    public void selectReaders()throws SQLException {
+    public void selectReaders() throws SQLException {
         List<Entity> readerList = readerDAO.selectReaders();
         readerList.forEach(entity -> System.out.println(entity));
     }
 
     @Test
-    public void deleteById() throws SQLException{
+    public void deleteById() throws SQLException {
         readerDAO.deleteById(12);
+    }
+
+    @Test
+    public void countByRole() throws SQLException {
+        int count = readerDAO.countByRole("学生");
+        System.out.println(count);
+    }
+
+    @Test
+    public void countByDepartment() throws SQLException {
+        int count = readerDAO.countByDepartment("计算机与软件学院");
+        System.out.println(count);
     }
 }

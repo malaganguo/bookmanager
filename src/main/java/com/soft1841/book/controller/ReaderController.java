@@ -121,9 +121,20 @@ public class ReaderController implements Initializable {
         //创建一个垂直布局，用来放新增用户的各个组件
         VBox vBox = new VBox();
         vBox.setSpacing(10);
-        vBox.setPadding(new Insets(20,10,10,10));
-        TextField nameField = new TextField("请输入姓名");
-        TextField avatarField = new TextField("请输入头像地址");
+        vBox.setPadding(new Insets(10,10,10,10));
+        Label infoLabel = new Label("输入读者信息：");
+        infoLabel.setPrefHeight(50);
+        infoLabel.setPrefWidth(580);
+        infoLabel.setAlignment(Pos.CENTER);
+        //给文本添加样式
+        infoLabel.getStyleClass().addAll("green-theme","font-title");
+        TextField nameField = new TextField();
+        nameField.setPromptText("请输入姓名");
+        //输入框无焦点
+        nameField.setFocusTraversable(false);
+        TextField avatarField = new TextField();
+        avatarField.setPromptText("请输入头像地址");
+        avatarField.setFocusTraversable(false);
         //性别，两个单选按钮为一个组，教师单选按钮默认被选中
         HBox roleBox = new HBox();
         roleBox.setSpacing(20);
@@ -169,15 +180,23 @@ public class ReaderController implements Initializable {
         DatePicker datePicker = new DatePicker();
         datePicker.setValue(LocalDate.now());
         //邮箱输入框
-        TextField emailField = new TextField("请输入邮箱");
+        TextField emailField = new TextField();
+        emailField.setPromptText("请输入邮箱");
+        emailField.setFocusTraversable(false);
         //电话输入框
-        TextField mobileField =  new TextField("请输入电话");
+        TextField mobileField =  new TextField();
+        mobileField.setPromptText("请输入电话");
+        mobileField.setFocusTraversable(false);
         //新增按钮
+        FlowPane flowPane = new FlowPane();
         Button addBtn = new Button("新增");
-        addBtn.getStyleClass().add("blue-theme");
-        vBox.getChildren().addAll(nameField,avatarField,roleBox,depComboBox,datePicker,
-                emailField,mobileField,addBtn);
-        Scene scene = new Scene(vBox,600,380);
+        addBtn.setPrefWidth(120);
+        addBtn.getStyleClass().addAll("green-theme","btn-radius");
+        flowPane.getChildren().add(addBtn);
+        flowPane.setAlignment(Pos.CENTER);
+        vBox.getChildren().addAll(infoLabel,nameField,avatarField,roleBox,depComboBox,datePicker,
+                emailField,mobileField,flowPane);
+        Scene scene = new Scene(vBox,450,380);
         scene.getStylesheets().add("/css/style.css");
         stage.getIcons().add(new Image("/img/logo.png"));
         stage.setScene(scene);

@@ -16,7 +16,6 @@
         <Label text="系统管理员登录" styleClass="login-title" AnchorPane.topAnchor="25" AnchorPane.leftAnchor="160"/>
         <Label text="图书管理系统后台" styleClass="font-gray" AnchorPane.topAnchor="65" AnchorPane.leftAnchor="190"/>
         <VBox prefWidth="330" AnchorPane.topAnchor="90" AnchorPane.leftAnchor="100" spacing="20">
-            <!--focusTraversable="false"：让输入框不获取焦点-->
             <TextField promptText="账号" focusTraversable="false" fx:id="accountField"/>
             <PasswordField promptText="密码" focusTraversable="false" fx:id="passwordField"/>
             <HBox spacing="20">

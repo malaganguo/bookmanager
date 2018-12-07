@@ -32,4 +32,20 @@ public interface ReaderDAO {
      * @throws SQLException
      */
     Long insertReader(Reader reader) throws SQLException;
+
+    /**
+     * 根据身份角色统计读者数量
+     * @param role
+     * @return
+     * @throws SQLException
+     */
+    int countByRole(String role) throws SQLException;
+
+    /**
+     * 根据身份角色统计读者数量
+     * @param department
+     * @return
+     * @throws SQLException
+     */
+    int countByDepartment(String department) throws SQLException;
 }

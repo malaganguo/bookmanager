@@ -1,8 +1,10 @@
 package com.soft1841.book.utils;
 
+import com.soft1841.book.dao.AdminDAO;
 import com.soft1841.book.dao.BookDAO;
 import com.soft1841.book.dao.ReaderDAO;
 import com.soft1841.book.dao.TypeDAO;
+import com.soft1841.book.dao.impl.AdminDAOImpl;
 import com.soft1841.book.dao.impl.BookDAOImpl;
 import com.soft1841.book.dao.impl.ReaderDAOImpl;
 import com.soft1841.book.dao.impl.TypeDAOImpl;
@@ -20,11 +22,25 @@ public class DAOFactory {
         return new TypeDAOImpl();
     }
 
+    /**
+     * 静态方法，返回BookDAO实现类的对象
+     *
+     * @return
+     */
     public static BookDAO getBookDAOInstance() {
         return new BookDAOImpl();
     }
 
-    public static ReaderDAO getReaderDAOInstance(){
+    /**
+     * 静态方法，返回ReaderDAO实现类的对象
+     *
+     * @return
+     */
+    public static ReaderDAO getReaderDAOInstance() {
         return new ReaderDAOImpl();
+    }
+
+    public static AdminDAO getAdminDAOInstance() {
+        return new AdminDAOImpl();
     }
 }

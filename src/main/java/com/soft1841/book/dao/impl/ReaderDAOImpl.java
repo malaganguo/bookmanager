@@ -37,4 +37,14 @@ public class ReaderDAOImpl implements ReaderDAO {
                         .set("mobile",reader.getMobile())
         );
     }
+
+    @Override
+    public int countByRole(String role) throws SQLException {
+        return Db.use().queryNumber("SELECT COUNT(*) FROM t_reader WHERE role = ? ", role).intValue();
+    }
+
+    @Override
+    public int countByDepartment(String department) throws SQLException {
+        return Db.use().queryNumber("SELECT COUNT(*) FROM t_reader WHERE department = ? ", department).intValue();
+    }
 }
