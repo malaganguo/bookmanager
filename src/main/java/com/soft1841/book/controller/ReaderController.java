@@ -3,7 +3,9 @@ package com.soft1841.book.controller;
 import cn.hutool.db.Entity;
 import com.soft1841.book.dao.ReaderDAO;
 import com.soft1841.book.entity.Reader;
+import com.soft1841.book.service.ReaderService;
 import com.soft1841.book.utils.DAOFactory;
+import com.soft1841.book.utils.ServiceFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -24,7 +26,6 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -37,24 +38,20 @@ import java.util.*;
 public class ReaderController implements Initializable {
     @FXML
     private FlowPane readerPane;
-    private ReaderDAO readerDAO = DAOFactory.getReaderDAOInstance();
-    private List<Entity> readerList = new ArrayList<>();
+    private ReaderService readerService = ServiceFactory.getReaderServiceInstance();
+    private List<Reader> readerList = new ArrayList<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            readerList = readerDAO.selectReaders();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        readerList = readerService.getAllReaders();
         showReaders(readerList);
     }
 
     //通过循环遍历readerList集合，创建Hbox来显示每个读者信息
-    private void showReaders(List<Entity> readerList) {
+    private void showReaders(List<Reader> readerList) {
         //移除之前的记录
         readerPane.getChildren().clear();
-        for (Entity entity : readerList) {
+        for (Reader reader : readerList) {
             HBox hBox = new HBox();
             hBox.setPrefSize(300, 240);
             hBox.getStyleClass().add("box");
@@ -63,7 +60,7 @@ public class ReaderController implements Initializable {
             VBox leftBox = new VBox();
             leftBox.setAlignment(Pos.TOP_CENTER);
             leftBox.setSpacing(30);
-            ImageView imageView = new ImageView(new Image(entity.getStr("avatar")));
+            ImageView imageView = new ImageView(new Image(reader.getAvatar()));
             imageView.setFitWidth(80);
             imageView.setFitHeight(80);
             Circle circle = new Circle();
@@ -71,17 +68,17 @@ public class ReaderController implements Initializable {
             circle.setCenterY(40.0);
             circle.setRadius(40.0);
             imageView.setClip(circle);
-            Label roleLabel = new Label(entity.getStr("role"));
+            Label roleLabel = new Label(reader.getRole());
             leftBox.getChildren().addAll(imageView, roleLabel);
             //右边垂直布局放姓名、部门、邮箱、电话
             VBox rightBox = new VBox();
             rightBox.setSpacing(15);
-            Label nameLabel = new Label(entity.getStr("name"));
+            Label nameLabel = new Label(reader.getName());
             nameLabel.getStyleClass().add("font-title");
-            Label departmentLabel = new Label(entity.getStr("department"));
-            Label emailLabel = new Label(entity.getStr("email"));
-            Label mobileLabel = new Label(entity.getStr("mobile"));
-            Label dateLabel = new Label(entity.getDate("join_date").toString());
+            Label departmentLabel = new Label(reader.getDepartment());
+            Label emailLabel = new Label(reader.getEmail());
+            Label mobileLabel = new Label(reader.getMobile());
+            Label dateLabel = new Label(reader.getJoinDate().toString());
             Button delBtn = new Button("删除");
             delBtn.getStyleClass().add("warning-theme");
             rightBox.getChildren().addAll(nameLabel, departmentLabel,
@@ -97,22 +94,18 @@ public class ReaderController implements Initializable {
                 alert.setContentText("确定要删除这行记录吗?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    try {
-                        long id = entity.getLong("id");
-                        //从底层删除掉这行记录
-                        readerDAO.deleteById(id);
-                        //从流式面板移除当前这个人的布局
-                        readerPane.getChildren().remove(hBox);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    long id = reader.getId();
+                    //删除掉这行记录
+                    readerService.deleteReader(id);
+                    //从流式面板移除当前这个人的布局
+                    readerPane.getChildren().remove(hBox);
                 }
             });
         }
     }
 
     //新增读者方法
-    public void addReader() throws SQLException{
+    public void addReader() {
         //创建一个Reader对象
         Reader reader = new Reader();
         //新建一个舞台
@@ -121,13 +114,13 @@ public class ReaderController implements Initializable {
         //创建一个垂直布局，用来放新增用户的各个组件
         VBox vBox = new VBox();
         vBox.setSpacing(10);
-        vBox.setPadding(new Insets(10,10,10,10));
+        vBox.setPadding(new Insets(10, 10, 10, 10));
         Label infoLabel = new Label("输入读者信息：");
         infoLabel.setPrefHeight(50);
         infoLabel.setPrefWidth(580);
         infoLabel.setAlignment(Pos.CENTER);
         //给文本添加样式
-        infoLabel.getStyleClass().addAll("green-theme","font-title");
+        infoLabel.getStyleClass().addAll("green-theme", "font-title");
         TextField nameField = new TextField();
         nameField.setPromptText("请输入姓名");
         //输入框无焦点
@@ -146,18 +139,18 @@ public class ReaderController implements Initializable {
         RadioButton studentButton = new RadioButton("学生");
         studentButton.setToggleGroup(group);
         studentButton.setUserData("学生");
-        roleBox.getChildren().addAll(teacherButton,studentButton);
+        roleBox.getChildren().addAll(teacherButton, studentButton);
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) {
-                 //给读者对象设置选中的角色
+                //给读者对象设置选中的角色
                 System.out.println(group.getSelectedToggle().getUserData().toString());
                 reader.setRole(group.getSelectedToggle().getUserData().toString());
             }
         });
         //院系部门数组
-        String[] departments = {"机械工程学院","电气工程学院","航空工程学院","交通工程学院",
-        "计算机与软件学院","经济管理学院","商务贸易学院","艺术设计学院"};
+        String[] departments = {"机械工程学院", "电气工程学院", "航空工程学院", "交通工程学院",
+                "计算机与软件学院", "经济管理学院", "商务贸易学院", "艺术设计学院"};
         //数组转为List
         List<String> list = Arrays.asList(departments);
         //将list中的数据加入observableList
@@ -184,25 +177,25 @@ public class ReaderController implements Initializable {
         emailField.setPromptText("请输入邮箱");
         emailField.setFocusTraversable(false);
         //电话输入框
-        TextField mobileField =  new TextField();
+        TextField mobileField = new TextField();
         mobileField.setPromptText("请输入电话");
         mobileField.setFocusTraversable(false);
         //新增按钮
         FlowPane flowPane = new FlowPane();
         Button addBtn = new Button("新增");
         addBtn.setPrefWidth(120);
-        addBtn.getStyleClass().addAll("green-theme","btn-radius");
+        addBtn.getStyleClass().addAll("green-theme", "btn-radius");
         flowPane.getChildren().add(addBtn);
         flowPane.setAlignment(Pos.CENTER);
-        vBox.getChildren().addAll(infoLabel,nameField,avatarField,roleBox,depComboBox,datePicker,
-                emailField,mobileField,flowPane);
-        Scene scene = new Scene(vBox,450,380);
+        vBox.getChildren().addAll(infoLabel, nameField, avatarField, roleBox, depComboBox, datePicker,
+                emailField, mobileField, flowPane);
+        Scene scene = new Scene(vBox, 450, 380);
         scene.getStylesheets().add("/css/style.css");
         stage.getIcons().add(new Image("/img/logo.png"));
         stage.setScene(scene);
         stage.show();
         //点击新增按钮，将界面数据封装成一个Reader对象，写入数据库
-        addBtn.setOnAction(event ->{
+        addBtn.setOnAction(event -> {
             String nameString = nameField.getText().trim();
             String avatarString = avatarField.getText().trim();
             String dateString = datePicker.getEditor().getText();
@@ -220,19 +213,11 @@ public class ReaderController implements Initializable {
             reader.setJoinDate(joinDate);
             reader.setEmail(emailString);
             reader.setMobile(mobileString);
-            System.out.println(reader.getName()+reader.getRole()+reader.getMobile());
-            try {
-                readerDAO.insertReader(reader);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            System.out.println(reader.getName() + reader.getRole() + reader.getMobile());
+            readerService.addReader(reader);
             stage.close();
             //重新读取一下数据显示
-            try {
-                readerList = readerDAO.selectReaders();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            readerList = readerService.getAllReaders();
             showReaders(readerList);
         });
     }

@@ -1,6 +1,7 @@
 package com.soft1841.book.dao;
 
 import cn.hutool.db.Entity;
+import com.soft1841.book.entity.Reader;
 import com.soft1841.book.utils.DAOFactory;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ public class ReaderDAOTest {
 
     @Test
     public void selectReaders() throws SQLException {
-        List<Entity> readerList = readerDAO.selectReaders();
+        List<Reader> readerList = readerDAO.selectReaders();
         readerList.forEach(entity -> System.out.println(entity));
     }
 

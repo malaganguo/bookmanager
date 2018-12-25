@@ -12,10 +12,10 @@ import java.util.List;
 public interface ReaderDAO {
     /**
      * 查询所有读者信息
-     * @return List<Entity>
+     * @return List<Reader>
      * @throws SQLException
      */
-    List<Entity> selectReaders()throws SQLException;
+    List<Reader> selectReaders()throws SQLException;
 
     /**
      * 根据id删除实体

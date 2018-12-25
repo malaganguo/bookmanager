@@ -29,12 +29,12 @@ public interface TypeDAO {
      * 查询所有类别
      * @return
      */
-    List<Entity> selectAllTypes() throws SQLException;
+    List<Type> selectAllTypes() throws SQLException;
 
     /**
      * 根据id查询类别信息
      * @param id
      * @return
      */
-    Entity getTypeById(int id) throws SQLException;
+    Type getTypeById(long id) throws SQLException;
 }

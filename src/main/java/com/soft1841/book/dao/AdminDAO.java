@@ -19,11 +19,11 @@ public interface AdminDAO {
     List<Admin> selectAdmins() throws SQLException;
 
     /**
-     * 根据id查询管理员
+     * 根据账号查询管理员
      *
-     * @param id
+     * @param account
      * @return Entity
      * @throws SQLException
      */
-    Admin getAdminById(Long id) throws SQLException;
+    Admin getAdminByAccount(String account) throws SQLException;
 }

@@ -15,23 +15,24 @@ public class AdminDAOImpl implements AdminDAO {
         List<Entity> entityList = Db.use().query("SELECT * FROM t_admin ");
         List<Admin> adminList = new ArrayList<>();
         for (Entity entity : entityList) {
-            adminList.add(convert(entity));
+            adminList.add(convertAdmin(entity));
         }
         return adminList;
     }
 
     @Override
-    public Admin getAdminById(Long id) throws SQLException {
-        Entity entity = Db.use().queryOne("SELECT * FROM t_admin WHERE id = ? ", id);
-        return convert(entity);
+    public Admin getAdminByAccount(String account) throws SQLException {
+        Entity entity = Db.use().queryOne("SELECT * FROM t_admin WHERE account = ? ", account);
+        return convertAdmin(entity);
     }
 
     /**
      * 封装一个将Entity转换为Admin的方法
+     *
      * @param entity
      * @return
      */
-    private Admin convert(Entity entity) {
+    private Admin convertAdmin(Entity entity) {
         Admin admin = new Admin();
         admin.setId(entity.getLong("id"));
         admin.setAccount(entity.getStr("account"));

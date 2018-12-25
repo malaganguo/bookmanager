@@ -1,11 +1,11 @@
 package com.soft1841.book.controller;
 
-import cn.hutool.db.Entity;
 import com.soft1841.book.dao.BookDAO;
-import com.soft1841.book.dao.TypeDAO;
 import com.soft1841.book.entity.Book;
 import com.soft1841.book.entity.Type;
-import com.soft1841.book.utils.DAOFactory;
+import com.soft1841.book.service.BookService;
+import com.soft1841.book.service.TypeService;
+import com.soft1841.book.utils.ServiceFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,7 +17,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -36,34 +35,24 @@ public class AddBookController implements Initializable {
     private ComboBox<Type> bookType;
 
     @FXML
-    private TextField bookName, bookAuthor, bookPrice, bookCover,bookStock;
+    private TextField bookName, bookAuthor, bookPrice, bookCover, bookStock;
     @FXML
     private TextArea bookSummary;
 
     private ObservableList<Type> typeData = FXCollections.observableArrayList();
 
-    private BookDAO bookDAO = DAOFactory.getBookDAOInstance();
+    private BookService bookService = ServiceFactory.getBookServiceInstance();
 
-    private TypeDAO typeDAO = DAOFactory.getTypeDAOInstance();
+    private TypeService typeService = ServiceFactory.getTypeServiceInstance();
 
-    private List<Entity> entityList = null;
+    private List<Type> typeList = null;
 
     private Long typeId;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
-        try {
-            entityList = typeDAO.selectAllTypes();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        for (Entity entity : entityList) {
-            Type type = new Type();
-            type.setId(entity.getLong("id"));
-            type.setTypeName(entity.getStr("type_name"));
-            typeData.add(type);
-        }
+        typeList = typeService.getAllTypes();
+        typeData.addAll(typeList);
         bookType.setItems(typeData);
         bookType.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
                     typeId = newValue.getId();
@@ -71,7 +60,7 @@ public class AddBookController implements Initializable {
         );
     }
 
-    public void addBook() throws Exception {
+    public void addBook() {
         String name = bookName.getText();
         String author = bookAuthor.getText();
         String price = bookPrice.getText();
@@ -87,7 +76,7 @@ public class AddBookController implements Initializable {
         book.setStock(Integer.parseInt(stock));
         book.setCover(cover);
         book.setSummary(summary);
-        long id = bookDAO.insertBook(book);
+        long id = bookService.addBook(book);
         book.setId(id);
         this.getBookData().add(book);
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

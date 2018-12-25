@@ -40,26 +40,26 @@ public class BookDAOTest {
 
     @Test
     public void selectAllBooks() throws SQLException {
-        List<Entity> bookList = bookDAO.selectAllBooks();
-        bookList.forEach(entity -> System.out.println(entity.getStr("name")));
+        List<Book> bookList = bookDAO.selectAllBooks();
+        bookList.forEach(book -> System.out.println(book.getName()));
     }
 
     @Test
     public void getBookById() throws SQLException {
-        Entity entity = bookDAO.getBookById(1);
-        System.out.println(entity);
+        Book book = bookDAO.getBookById(1);
+        System.out.println(book.getName());
     }
 
     @Test
     public void selectBooksLike() throws SQLException {
-        List<Entity> bookList = bookDAO.selectBooksLike("少");
-        bookList.forEach(entity -> System.out.println(entity.getStr("name")));
+        List<Book> bookList = bookDAO.selectBooksLike("少");
+        bookList.forEach(book -> System.out.println(book.getName()));
     }
 
     @Test
     public void selectBooksByTypeId() throws SQLException {
-        List<Entity> bookList = bookDAO.selectBooksByTypeId(1);
-        bookList.forEach(entity -> System.out.println(entity.getStr("name")));
+        List<Book> bookList = bookDAO.selectBooksByTypeId(1);
+        bookList.forEach(book -> System.out.println(book.getName()));
     }
 
     @Test

@@ -1,8 +1,9 @@
 package com.soft1841.book.controller;
 
-import cn.hutool.db.Entity;
 import com.soft1841.book.dao.ReaderDAO;
+import com.soft1841.book.service.ReaderService;
 import com.soft1841.book.utils.DAOFactory;
+import com.soft1841.book.utils.ServiceFactory;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ public class ReaderAnalysisController implements Initializable {
     private String[] departments = {"机械工程学院", "电气工程学院", "航空工程学院", "交通工程学院",
             "计算机与软件学院", "经济管理学院", "商务贸易学院", "艺术设计学院"};
     private String[] roles = {"教师", "学生"};
-    private ReaderDAO readerDAO = DAOFactory.getReaderDAOInstance();
+    private ReaderService readerService = ServiceFactory.getReaderServiceInstance();
 
     private ObservableList<PieChart.Data> pieChartData1 = FXCollections.observableArrayList();
 
@@ -29,17 +30,13 @@ public class ReaderAnalysisController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            initDepartmentPieChart();
-            initRolePieChart();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        initDepartmentPieChart();
+        initRolePieChart();
     }
 
-    private void initDepartmentPieChart() throws SQLException {
+    private void initDepartmentPieChart() {
         for (String department : departments) {
-            int count = readerDAO.countByDepartment(department);
+            int count = readerService.countByDepartment(department);
             pieChartData1.add(new PieChart.Data(department, count));
         }
         final PieChart chart = new PieChart(pieChartData1);
@@ -47,9 +44,9 @@ public class ReaderAnalysisController implements Initializable {
         departmentPieChart.getChildren().add(chart);
     }
 
-    private void initRolePieChart() throws SQLException {
+    private void initRolePieChart() {
         for (String role : roles) {
-            int count = readerDAO.countByRole(role);
+            int count = readerService.countByRole(role);
             pieChartData2.add(new PieChart.Data(role, count));
         }
         final PieChart chart = new PieChart(pieChartData2);

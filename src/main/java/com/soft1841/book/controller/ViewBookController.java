@@ -2,7 +2,10 @@ package com.soft1841.book.controller;
 
 import cn.hutool.db.Entity;
 import com.soft1841.book.dao.BookDAO;
+import com.soft1841.book.entity.Book;
+import com.soft1841.book.service.BookService;
 import com.soft1841.book.utils.DAOFactory;
+import com.soft1841.book.utils.ServiceFactory;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -16,7 +19,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -29,40 +31,36 @@ public class ViewBookController implements Initializable {
     @FXML
     private FlowPane bookPane;
 
-    private List<Entity> list = new ArrayList<>();
+    private List<Book> bookList;
 
-    private BookDAO bookDAO = DAOFactory.getBookDAOInstance();
+    private BookService bookService = ServiceFactory.getBookServiceInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            list = bookDAO.selectAllBooks();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        showBooks(list);
+        bookList = bookService.getAllBooks();
+        showBooks(bookList);
     }
 
-    private void showBooks(List<Entity> list) {
+    private void showBooks(List<Book> list) {
         ObservableList<Node> observableList = bookPane.getChildren();
         bookPane.getChildren().removeAll(observableList);
-        for (Entity entity : list) {
+        for (Book book : list) {
             VBox vBox = new VBox();
             vBox.setPrefSize(240, 300);
             vBox.getStyleClass().add("box");
             vBox.setSpacing(10);
             vBox.setAlignment(Pos.CENTER);
-            ImageView imageView = new ImageView(new Image(entity.getStr("cover")));
+            ImageView imageView = new ImageView(new Image(book.getCover()));
             imageView.setFitWidth(100);
             imageView.setFitHeight(120);
-            Label nameLabel = new Label(entity.getStr("name"));
+            Label nameLabel = new Label(book.getName());
             nameLabel.getStyleClass().add("font-title");
-            Label authorLabel = new Label("作者：" + entity.getStr("author"));
-            Label priceLabel = new Label("价格：" + entity.getDouble("price"));
-            Label stockLabel = new Label("库存：" + entity.getDouble("stock"));
+            Label authorLabel = new Label("作者：" + book.getAuthor());
+            Label priceLabel = new Label("价格：" + book.getPrice());
+            Label stockLabel = new Label("库存：" + book.getStock());
             Button delBtn = new Button("删除");
             delBtn.getStyleClass().add("warning-theme");
-            vBox.getChildren().addAll(imageView, nameLabel, authorLabel, priceLabel, stockLabel,delBtn);
+            vBox.getChildren().addAll(imageView, nameLabel, authorLabel, priceLabel, stockLabel, delBtn);
             bookPane.getChildren().add(vBox);
             delBtn.setOnAction(event -> {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -70,16 +68,10 @@ public class ViewBookController implements Initializable {
                 alert.setContentText("确定要删除这行记录吗?");
                 Optional<ButtonType> result = alert.showAndWait();
                 if (result.get() == ButtonType.OK) {
-                    try {
-                        long id = entity.getLong("id");
-                        bookDAO.deleteBookById(id);
-                        bookPane.getChildren().remove(vBox);
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    bookService.deleteBook(book.getId());
+                    bookPane.getChildren().remove(vBox);
                 }
             });
         }
     }
-
 }

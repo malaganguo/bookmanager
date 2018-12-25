@@ -43,7 +43,7 @@ public interface BookDAO {
      *
      * @return
      */
-    List<Entity> selectAllBooks() throws SQLException;
+    List<Book> selectAllBooks() throws SQLException;
 
 
     /**
@@ -52,7 +52,7 @@ public interface BookDAO {
      * @param id
      * @return
      */
-    Entity getBookById(long id) throws SQLException;
+    Book getBookById(long id) throws SQLException;
 
     /**
      * 根据书名关键词模糊查询图书
@@ -60,7 +60,7 @@ public interface BookDAO {
      * @return
      * @throws SQLException
      */
-    List<Entity> selectBooksLike(String keywords) throws SQLException;
+    List<Book> selectBooksLike(String keywords) throws SQLException;
 
     /**
      * 根据图书类别查询图书
@@ -68,7 +68,7 @@ public interface BookDAO {
      * @return
      * @throws SQLException
      */
-    List<Entity> selectBooksByTypeId(long typeId) throws SQLException;
+    List<Book> selectBooksByTypeId(long typeId) throws SQLException;
 
     /**
      * 根据图书类别统计图书数量
