@@ -19,4 +19,11 @@ public interface AdminService {
      * @return boolean
      */
     boolean login(String account,String password);
+
+    /**
+     * 根据账号查询管理员信息
+     * @param account
+     * @return amdin
+     */
+    Admin getAdminByAccount(String account);
 }

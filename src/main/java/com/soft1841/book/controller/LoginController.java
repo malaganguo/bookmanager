@@ -1,5 +1,6 @@
 package com.soft1841.book.controller;
 
+import com.soft1841.book.entity.Admin;
 import com.soft1841.book.service.AdminService;
 import com.soft1841.book.utils.ServiceFactory;
 import javafx.fxml.FXML;
@@ -29,9 +30,11 @@ public class LoginController {
             alert.setTitle("提示");
             alert.setContentText("登录成功!");
             alert.showAndWait();
+            //创建主界面舞台
             Stage mainStage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-            BorderPane root = fxmlLoader.load();
+            //读入布局
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+            BorderPane root = loader.load();
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/css/style.css");
             mainStage.setTitle("book manage system");
@@ -39,6 +42,10 @@ public class LoginController {
             mainStage.setScene(scene);
             mainStage.getIcons().add(new Image("/img/logo.png"));
             mainStage.show();
+            //将这个管理员信息传给主控制器
+            Admin admin = adminService.getAdminByAccount(account);
+            MainController mainController = loader.getController();
+            mainController.setAdmin(admin);
             Stage loginStage = (Stage) accountField.getScene().getWindow();
             loginStage.close();
 

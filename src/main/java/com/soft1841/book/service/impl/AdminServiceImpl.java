@@ -40,4 +40,15 @@ public class AdminServiceImpl implements AdminService {
         }
         return flag;
     }
+
+    @Override
+    public Admin getAdminByAccount(String account) {
+        Admin admin = new Admin();
+        try {
+            admin = adminDAO.getAdminByAccount(account);
+        } catch (SQLException e) {
+            System.err.println("根据账号查找管理员信息出现异常");
+        }
+        return admin;
+    }
 }

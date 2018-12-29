@@ -1,12 +1,19 @@
 package com.soft1841.book.controller;
 
+import com.soft1841.book.entity.Admin;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -15,10 +22,35 @@ import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
+
     @FXML
     private StackPane mainContainer;
     @FXML
     private Label timeLabel;
+    @FXML
+    private ImageView adminAvatar;
+    @FXML
+    private Label adminName;
+
+    private Admin admin;
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+        //开启一个UI线程 ,将登录界面传过来的管理员信息显示在主界面的右上角
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Image image = new Image(admin.getAvatar());
+                adminAvatar.setImage(image);
+                Circle circle = new Circle();
+                circle.setCenterX(20.0);
+                circle.setCenterY(20.0);
+                circle.setRadius(20.0);
+                adminAvatar.setClip(circle);
+                adminName.setText(admin.getName());
+            }
+        });
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -26,8 +58,10 @@ public class MainController implements Initializable {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true){
+                while (true) {
+                    //获取系统当前时间
                     LocalDateTime now = LocalDateTime.now();
+                    //格式化时间
                     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd日 HH:mm:ss");
                     String timeString = dateTimeFormatter.format(now);
                     //启一个UI线程
@@ -41,13 +75,11 @@ public class MainController implements Initializable {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
-                       System.err.println("中断异常");
+                        System.err.println("中断异常");
                     }
                 }
             }
         }).start();
-
-
 
         try {
             AnchorPane anchorPane = new FXMLLoader(getClass().getResource("/fxml/default.fxml")).load();
@@ -99,5 +131,23 @@ public class MainController implements Initializable {
         mainContainer.getChildren().clear();
         AnchorPane anchorPane = new FXMLLoader(getClass().getResource("/fxml/" + fileName)).load();
         mainContainer.getChildren().add(anchorPane);
+    }
+
+    //退出系统
+    public void logout() throws Exception {
+        //关闭主界面
+        Stage mainStage = (Stage) mainContainer.getScene().getWindow();
+        mainStage.close();
+        //弹出登录界面
+        Stage loginStage = new Stage();
+        loginStage.setTitle("Admin Login");
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add("/css/style.css");
+        loginStage.setMaximized(true);
+        loginStage.getIcons().add(new Image("/img/logo.png"));
+        loginStage.setScene(scene);
+        loginStage.show();
     }
 }

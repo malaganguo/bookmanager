@@ -16,10 +16,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.stream.Collectors;
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-
+/**
+ * 使用线程池来加载网络图片
+ */
 public class ImageLoader {
 //    private static ImageLoader instance = new ImageLoader();
 //
@@ -30,41 +31,43 @@ public class ImageLoader {
 //        return instance;
 //    }
 //
+//    String[] imgSources = {
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/1.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/2.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/3.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/4.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/5.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/6.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/7.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/8.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/9.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/10.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/11.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/12.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/13.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/14.jpg",
+//            "http://pj7ldvis7.bkt.clouddn.com/avatar/15.jpg"
+//    };
+//
 //    //线程池
 //    private ExecutorService executor = Executors.newFixedThreadPool(8);
 //
-//    public List<Image> loadImages(String path) {
+//    public List<Image> loadImages() {
 //        List<Image> images = new ArrayList<>();
-//        File file = new File(path);
-//        if (!file.isDirectory()) {
-//            throw new RuntimeException("need directory!");
-//        }
-//        File[] files = file.listFiles(new FilenameFilter() {
-//
-//            @Override
-//            public boolean accept(File dir, String name) {
-//                //判断是图片类型文件
-//                if (name.endsWith(".jpg") || (name.endsWith(".png"))) {
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//
 //        //并发加载图片，并使用Future保存加载结果
 //        List<Future<Image>> futures = new ArrayList<>();
-//        for (final File f : files) {
+//        for (String path : imgSources) {
 //            Future<Image> future = executor.submit(() -> {
-//                return new Image(f.getName(), f.getAbsolutePath());
+//                return new Image(path);
 //            });
 //            futures.add(future);
 //        }
 //
 //        //等待所有并发加载返回结果
 //        try {
-//            for (Future<MyLabel> future : futures) {
-//                MyLabel icon = future.get();
-//                images.add(icon);
+//            for (Future<Image> future : futures) {
+//                Image image = future.get();
+//                images.add(image);
 //            }
 //        } catch (InterruptedException e) {
 //            System.err.println("中断异常");
@@ -77,22 +80,5 @@ public class ImageLoader {
 //
 //        return sortedList;
 //    }
-//
-//    //继承MyImageView并实现Comparable接口，从而对MyImageView进行排序
-//    private static class MyImageView extends ImageView implements Comparable<MyImageView> {
-//        private static final long serialVersionUID = 1L;
-//        private String fileName;
-//
-//        public MyImageView(String fileName, String fullPath) {
-//            this.fileName = fileName;
-//            //使用thumbnailator生成缩略图
-//            setImage(new Image(fullPath));
-//        }
-//
-//        @Override
-//        public int compareTo(MyImageView o) {
-//            int result = this.fileName.compareTo(o.fileName);
-//            return result;
-//        }
-//    }
+
 }

@@ -5,10 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <BorderPane styleClass="green-theme"
-        xmlns:fx="http://javafx.com/fxml"
-        fx:controller="com.soft1841.book.controller.MainController">
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.soft1841.book.controller.MainController">
     <top>
         <AnchorPane prefHeight="80.0">
             <Label text="图书后台管理系统" onMouseClicked="#listDefault"
@@ -20,11 +19,12 @@
                     <Font name="System Bold" size="26.0"/>
                 </font>
             </Label>
-            <Label  fx:id="timeLabel" AnchorPane.topAnchor="30" AnchorPane.rightAnchor="180" styleClass="font-white"/>
-            <ImageView fitWidth="45" fitHeight="45" AnchorPane.topAnchor="15" AnchorPane.rightAnchor="120">
-                <Image url="/img/me.png"/>
+            <Label fx:id="timeLabel" AnchorPane.topAnchor="30" AnchorPane.rightAnchor="200" styleClass="font-white"/>
+            <ImageView fx:id="adminAvatar" fitWidth="40" fitHeight="40" AnchorPane.topAnchor="10"
+                       AnchorPane.rightAnchor="140">
             </ImageView>
-            <Button text="退出系统" styleClass="blue-theme"
+            <Label fx:id="adminName" AnchorPane.topAnchor="55" AnchorPane.rightAnchor="130" styleClass="font-white"/>
+            <Button text="退出系统" styleClass="blue-theme" onAction="#logout"
                     AnchorPane.topAnchor="20" AnchorPane.rightAnchor="20"/>
         </AnchorPane>
     </top>
@@ -74,13 +74,13 @@
 
             <!--中间内容面板-->
             <!--滚动面板-->
-            <ScrollPane  fitToWidth="true"  hbarPolicy="NEVER"
-                         vbarPolicy="AS_NEEDED" styleClass="default-theme">
-                     <StackPane fx:id="mainContainer" styleClass="default-theme" minWidth="1060" minHeight="600">
-                <padding>
-                    <Insets top="10" left="30" bottom="5" right="10"/>
-                </padding>
-            </StackPane>
+            <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+                        vbarPolicy="AS_NEEDED" styleClass="default-theme">
+                <StackPane fx:id="mainContainer" styleClass="default-theme" minWidth="1060" minHeight="600">
+                    <padding>
+                        <Insets top="10" left="30" bottom="5" right="10"/>
+                    </padding>
+                </StackPane>
             </ScrollPane>
             <padding>
                 <Insets top="10"/>
