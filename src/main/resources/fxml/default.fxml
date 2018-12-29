@@ -1,51 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
-
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.web.WebView?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml">
+<AnchorPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.soft1841.book.controller.DefaultController">
+    <HBox  AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
+        <ImageView fx:id="bookImg" fitWidth="900" fitHeight="500">
+        </ImageView>
+    </HBox>
 
-    <VBox spacing="5">
-        <HBox prefHeight="200" spacing="20"
-              AnchorPane.leftAnchor="15" AnchorPane.topAnchor="5"
-              AnchorPane.rightAnchor="15">
-            <StackPane styleClass="box,default-theme">
-                <ImageView fitWidth="300" fitHeight="200">
-                    <Image url="/img/1.png"/>
-                </ImageView>
-            </StackPane>
-            <StackPane styleClass="box,default-theme">
-                <ImageView fitWidth="300" fitHeight="200">
-                    <Image url="/img/2.png"/>
-                </ImageView>
-            </StackPane>
-            <StackPane styleClass="box,default-theme">
-                <ImageView fitWidth="300" fitHeight="200">
-                    <Image url="/img/3.png"/>
-                </ImageView>
-            </StackPane>
-        </HBox>
-        <HBox spacing="20">
-            <StackPane styleClass="box,default-theme" minHeight="260">
-                <ImageView fitWidth="630" fitHeight="260">
-                    <Image url="/img/4.png"/>
-                </ImageView>
-            </StackPane>
-            <StackPane>
-                <VBox spacing="5">
-                    <StackPane styleClass="box,default-theme" maxHeight="160">
-                        <ImageView fitWidth="300" fitHeight="160">
-                            <Image url="/img/5.png"/>
-                        </ImageView>
-                    </StackPane>
-                    <StackPane styleClass="box,default-theme" maxHeight="160">
-                        <ImageView fitWidth="300" fitHeight="160">
-                            <Image url="/img/6.png"/>
-                        </ImageView>
-                    </StackPane>
-                </VBox>
-            </StackPane>
-        </HBox>
-    </VBox>
 </AnchorPane>

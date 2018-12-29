@@ -5,17 +5,6 @@
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml">
     <Label text="图书类别统计分析" styleClass="font-title"
-           AnchorPane.topAnchor="10"
-           AnchorPane.leftAnchor="50"/>
-    <HBox spacing="20" AnchorPane.topAnchor="60" AnchorPane.leftAnchor="50">
-        <Button text="默认按钮"/>
-        <Button text="百搭按钮" styleClass="blue-theme,btn-radius"/>
-        <Button text="暖色按钮" styleClass="warm-theme,btn-radius"/>
-        <Button text="导航菜单" styleClass="menu-btn"/>
-        <AnchorPane styleClass="box">
-            <Label text="    标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题标题"
-                   wrapText="true"   maxWidth="200"
-            AnchorPane.topAnchor="10" AnchorPane.rightAnchor="10" AnchorPane.leftAnchor="10" AnchorPane.bottomAnchor="10"/>
-        </AnchorPane>
-    </HBox>
+                    AnchorPane.topAnchor="10"
+                    AnchorPane.leftAnchor="50"/>
 </AnchorPane>

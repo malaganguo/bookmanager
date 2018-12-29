@@ -102,21 +102,21 @@ public class BookController implements Initializable {
                 }
                 setGraphic(editButton);
                 //点击编辑按钮，弹出窗口，输入需要修改的图书价格
-                editButton.setOnAction(event -> {
-                    TextInputDialog dialog = new TextInputDialog("请输入价格");
-                    dialog.setTitle("图书修改界面");
-                    dialog.setHeaderText("书名：" + book.getName());
-                    dialog.setContentText("请输入新的价格:");
-                    Optional<String> result = dialog.showAndWait();
-                    //确认输入了内容，避免NPE
-                    if (result.isPresent()) {
-                        //获取输入的新价格并转化成Double数据
-                        String priceString = result.get();
-                        book.setPrice(Double.parseDouble(priceString));
-                        //更新图书信息
-                        bookService.updateBook(book);
-                    }
-                });
+//                editButton.setOnAction(event -> {
+//                    TextInputDialog dialog = new TextInputDialog("请输入价格");
+//                    dialog.setTitle("图书修改界面");
+//                    dialog.setHeaderText("书名：" + book.getName());
+//                    dialog.setContentText("请输入新的价格:");
+//                    Optional<String> result = dialog.showAndWait();
+//                    //确认输入了内容，避免NPE
+//                    if (result.isPresent()) {
+//                        //获取输入的新价格并转化成Double数据
+//                        String priceString = result.get();
+//                        book.setPrice(Double.parseDouble(priceString));
+//                        //更新图书信息
+//                        bookService.updateBook(book);
+//                    }
+//                });
             }
         });
         //将编辑列加入图书表格
@@ -158,42 +158,42 @@ public class BookController implements Initializable {
 
         {
             TableRow<Book> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                //判断鼠标双击了一行
-                if (event.getClickCount() == 2 && (!row.isEmpty())) {
-                    //获得该行的图书ID属性
-                    long id = row.getItem().getId();
-                    //根据id查询到图书的完整信息
-                    Book book = bookService.getBook(id);
-                    //创建一个新的图书详情界面窗口
-                    Stage bookInfoStage = new Stage();
-                    bookInfoStage.setTitle("图书详情界面");
-                    //用VBox显示具体图书信息
-                    VBox vBox = new VBox();
-                    vBox.setSpacing(10);
-                    vBox.setAlignment(Pos.CENTER);
-                    vBox.setPrefSize(600, 400);
-                    vBox.setPadding(new Insets(10, 10, 10, 10));
-                    Label nameLabel = new Label("书名：" + book.getName());
-                    nameLabel.getStyleClass().add("font-title");
-                    Label authorLabel = new Label("作者：" + book.getAuthor());
-                    Label priceLabel = new Label("价格:" + book.getPrice());
-                    Label stockLabel = new Label("库存：" + book.getStock());
-                    ImageView bookImgView = new ImageView(new Image(book.getCover()));
-                    bookImgView.setFitHeight(150);
-                    bookImgView.setFitWidth(120);
-                    Label summaryLabel = new Label(book.getSummary());
-                    summaryLabel.setPrefWidth(400);
-                    summaryLabel.setWrapText(true);
-                    summaryLabel.getStyleClass().add("box");
-                    vBox.getChildren().addAll(nameLabel, authorLabel, priceLabel, stockLabel, bookImgView, summaryLabel);
-                    Scene scene = new Scene(vBox, 640, 480);
-                    //因为是一个新的窗口，需要重新读入一下样式表，这个界面就可以使用style.css样式表中的样式了
-                    scene.getStylesheets().add("/css/style.css");
-                    bookInfoStage.setScene(scene);
-                    bookInfoStage.show();
-                }
-            });
+//            row.setOnMouseClicked(event -> {
+//                //判断鼠标双击了一行
+//                if (event.getClickCount() == 2 && (!row.isEmpty())) {
+//                    //获得该行的图书ID属性
+//                    long id = row.getItem().getId();
+//                    //根据id查询到图书的完整信息
+//                    Book book = bookService.getBook(id);
+//                    //创建一个新的图书详情界面窗口
+//                    Stage bookInfoStage = new Stage();
+//                    bookInfoStage.setTitle("图书详情界面");
+//                    //用VBox显示具体图书信息
+//                    VBox vBox = new VBox();
+//                    vBox.setSpacing(10);
+//                    vBox.setAlignment(Pos.CENTER);
+//                    vBox.setPrefSize(600, 400);
+//                    vBox.setPadding(new Insets(10, 10, 10, 10));
+//                    Label nameLabel = new Label("书名：" + book.getName());
+//                    nameLabel.getStyleClass().add("font-title");
+//                    Label authorLabel = new Label("作者：" + book.getAuthor());
+//                    Label priceLabel = new Label("价格:" + book.getPrice());
+//                    Label stockLabel = new Label("库存：" + book.getStock());
+//                    ImageView bookImgView = new ImageView(new Image(book.getCover()));
+//                    bookImgView.setFitHeight(150);
+//                    bookImgView.setFitWidth(120);
+//                    Label summaryLabel = new Label(book.getSummary());
+//                    summaryLabel.setPrefWidth(400);
+//                    summaryLabel.setWrapText(true);
+//                    summaryLabel.getStyleClass().add("box");
+//                    vBox.getChildren().addAll(nameLabel, authorLabel, priceLabel, stockLabel, bookImgView, summaryLabel);
+//                    Scene scene = new Scene(vBox, 640, 480);
+//                    //因为是一个新的窗口，需要重新读入一下样式表，这个界面就可以使用style.css样式表中的样式了
+//                    scene.getStylesheets().add("/css/style.css");
+//                    bookInfoStage.setScene(scene);
+//                    bookInfoStage.show();
+//                }
+//            });
             return row;
         });
     }
