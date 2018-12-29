@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.geometry.Insets?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.soft1841.book.controller.DefaultController">
-    <HBox  AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
-          AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="0">
-        <ImageView fx:id="bookImg" fitWidth="900" fitHeight="500">
-        </ImageView>
+    <HBox AnchorPane.topAnchor="0" AnchorPane.leftAnchor="0"
+          AnchorPane.rightAnchor="0" prefHeight="300" spacing="20">
+        <StackPane styleClass="box">
+            <ImageView fx:id="bookImg" fitWidth="600" fitHeight="300">
+            </ImageView>
+        </StackPane>
+        <GridPane hgap="20" vgap="20" prefHeight="300" prefWidth="360" styleClass="box">
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="box,green-theme" prefWidth="150"
+                       prefHeight="130">
+                <Label text="员工10人" styleClass="font-title"/>
+            </StackPane>
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="box,blue-theme" prefWidth="150"
+                       prefHeight="130">
+                <Label text="类别8种" styleClass="font-title"/>
+            </StackPane>
+            <StackPane GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="box,warm-theme" prefWidth="150"
+                       prefHeight="130">
+                <Label text="商品100种" styleClass="font-title"/>
+            </StackPane>
+            <StackPane GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="box,warning-theme" prefWidth="150"
+                       prefHeight="130">
+                <Label text="销售额2.3万" styleClass="font-title"/>
+            </StackPane>
+            <padding>
+                <Insets top="20" left="20" right="20" bottom="20"/>
+            </padding>
+        </GridPane>
     </HBox>
-
+    <StackPane AnchorPane.topAnchor="320" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="20" styleClass="box">
+        <fx:include source="book_analysis.fxml"/>
+    </StackPane>
 </AnchorPane>

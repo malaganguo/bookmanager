@@ -5,6 +5,7 @@ import com.soft1841.book.dao.ReaderDAO;
 import com.soft1841.book.entity.Reader;
 import com.soft1841.book.service.ReaderService;
 import com.soft1841.book.utils.DAOFactory;
+import com.soft1841.book.utils.ImageLoader;
 import com.soft1841.book.utils.ServiceFactory;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -221,4 +222,19 @@ public class ReaderController implements Initializable {
             showReaders(readerList);
         });
     }
+
+    //加载图片方法
+    public void loadImages() {
+//        String path = pathField.getText();
+//        long start = System.currentTimeMillis();
+//        List<JLabel> images = ImageLoader.getInstance().loadImages(path);
+//        for (JLabel label :images) {
+//            contentPanel.add(label);
+//        }
+//        contentPanel.updateUI();
+//        long end = System.currentTimeMillis();
+//        System.out.println("加载需要" + (end - start) + "毫秒！");
+//
+    }
+
 }
