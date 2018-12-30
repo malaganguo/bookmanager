@@ -26,4 +26,12 @@ public interface AdminDAO {
      * @throws SQLException
      */
     Admin getAdminByAccount(String account) throws SQLException;
+
+    /**
+     * 统计管理员总数
+     *
+     * @return
+     * @throws SQLException
+     */
+    int countAdmins() throws SQLException;
 }

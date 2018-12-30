@@ -22,4 +22,10 @@ public class AdminDAOTest {
         Admin admin = adminDAO.getAdminByAccount("aaa@qq.com");
         System.out.println(admin);
     }
+
+    @Test
+    public void countAdmins() throws SQLException {
+        int count = adminDAO.countAdmins();
+        System.out.println(count);
+    }
 }

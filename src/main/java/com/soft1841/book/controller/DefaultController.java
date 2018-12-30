@@ -1,8 +1,11 @@
 package com.soft1841.book.controller;
 
+import com.soft1841.book.service.AnalysisService;
+import com.soft1841.book.utils.ServiceFactory;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -12,12 +15,20 @@ import java.util.ResourceBundle;
 public class DefaultController implements Initializable {
     @FXML
     private ImageView bookImg;
+    @FXML
+    private Label typeCount, bookCount, readerCount, adminCount;
+    private AnalysisService analysisService = ServiceFactory.getAnalysisServiceInstance();
 
     //轮播图资源数组
     String[] imgPath = {"book1.jpg", "book2.jpg", "book3.jpg", "book4.jpg", "book5.jpg"};
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //获取后台的统计数据，显示在相应区域
+        typeCount.setText("类别" + analysisService.getTypesCount() + "种");
+        bookCount.setText("图书" + analysisService.getBooksCount() + "册");
+        readerCount.setText("读者" + analysisService.getReadersCount() + "人");
+        adminCount.setText("管理员" + analysisService.getAdminsCount() + "个");
         //新建一个线程，用来轮播
         new Thread(new Runnable() {
             @Override

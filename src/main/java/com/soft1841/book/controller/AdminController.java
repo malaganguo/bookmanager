@@ -23,6 +23,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class AdminController implements Initializable {
     @FXML
@@ -33,6 +35,14 @@ public class AdminController implements Initializable {
     private ObservableList<Admin> observableList = FXCollections.observableArrayList();
 
     private List<Admin> adminList = new ArrayList<>();
+
+    private static final int MAX_THREADS = 4;
+    //线程池配置
+    private final Executor exec = Executors.newFixedThreadPool(MAX_THREADS, runnable -> {
+        Thread t = new Thread(runnable);
+        t.setDaemon(true);
+        return t;
+    });
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,7 +61,14 @@ public class AdminController implements Initializable {
                             container.setSpacing(20);
                             container.getStyleClass().add("box");
                             container.setMouseTransparent(true);
-                            ImageView imageView = new ImageView(new Image(item.getAvatar()));
+                            ImageView imageView = new ImageView();
+                            //利用线程池来加载图片，并设置为管理员头像
+                            exec.execute(new Runnable() {
+                                @Override
+                                public void run() {
+                                    imageView.setImage(new Image(item.getAvatar()));
+                                }
+                            });
                             imageView.setFitHeight(100);
                             imageView.setFitWidth(100);
                             Label accountLabel = new Label(item.getAccount());

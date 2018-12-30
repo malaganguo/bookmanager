@@ -26,6 +26,11 @@ public class AdminDAOImpl implements AdminDAO {
         return convertAdmin(entity);
     }
 
+    @Override
+    public int countAdmins() throws SQLException {
+        return Db.use().queryNumber("SELECT COUNT(*) FROM t_admin ").intValue();
+    }
+
     /**
      * 封装一个将Entity转换为Admin的方法
      *

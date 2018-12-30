@@ -15,9 +15,9 @@ import java.util.List;
 public class ReaderDAOImpl implements ReaderDAO {
     @Override
     public List<Reader> selectReaders() throws SQLException {
-        List<Entity> entityList =  Db.use().query("SELECT * FROM t_reader ");
+        List<Entity> entityList = Db.use().query("SELECT * FROM t_reader ");
         List<Reader> readerList = new ArrayList<>();
-        for (Entity entity: entityList) {
+        for (Entity entity : entityList) {
             readerList.add(convertReader(entity));
         }
         return readerList;
@@ -52,6 +52,12 @@ public class ReaderDAOImpl implements ReaderDAO {
     @Override
     public int countByDepartment(String department) throws SQLException {
         return Db.use().queryNumber("SELECT COUNT(*) FROM t_reader WHERE department = ? ", department).intValue();
+    }
+
+    @Override
+    public int countReaders() throws SQLException {
+        return Db.use().queryNumber("SELECT COUNT(*) FROM t_reader  ").intValue();
+
     }
 
     /**

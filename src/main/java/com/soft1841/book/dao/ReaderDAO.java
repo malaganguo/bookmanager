@@ -12,13 +12,15 @@ import java.util.List;
 public interface ReaderDAO {
     /**
      * 查询所有读者信息
+     *
      * @return List<Reader>
      * @throws SQLException
      */
-    List<Reader> selectReaders()throws SQLException;
+    List<Reader> selectReaders() throws SQLException;
 
     /**
      * 根据id删除实体
+     *
      * @param id
      * @return
      * @throws SQLException
@@ -27,6 +29,7 @@ public interface ReaderDAO {
 
     /**
      * 新增一个读者，返回自增主键
+     *
      * @param reader
      * @return
      * @throws SQLException
@@ -35,6 +38,7 @@ public interface ReaderDAO {
 
     /**
      * 根据身份角色统计读者数量
+     *
      * @param role
      * @return
      * @throws SQLException
@@ -43,9 +47,18 @@ public interface ReaderDAO {
 
     /**
      * 根据身份角色统计读者数量
+     *
      * @param department
      * @return
      * @throws SQLException
      */
     int countByDepartment(String department) throws SQLException;
+
+    /**
+     * 统计读者总数
+     *
+     * @return
+     * @throws SQLException
+     */
+    int countReaders() throws SQLException;
 }

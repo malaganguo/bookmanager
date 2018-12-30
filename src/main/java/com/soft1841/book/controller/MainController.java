@@ -42,11 +42,13 @@ public class MainController implements Initializable {
             public void run() {
                 Image image = new Image(admin.getAvatar());
                 adminAvatar.setImage(image);
+                //将头像显示为圆形
                 Circle circle = new Circle();
                 circle.setCenterX(20.0);
                 circle.setCenterY(20.0);
                 circle.setRadius(20.0);
                 adminAvatar.setClip(circle);
+                //显示管理员姓名
                 adminName.setText(admin.getName());
             }
         });

@@ -35,4 +35,10 @@ public class TypeDAOTest {
         Type type = typeDAO.getTypeById(1);
         System.out.println(type);
     }
+
+    @Test
+    public void countTypes() throws SQLException {
+        int count = typeDAO.countTypes();
+        System.out.println(count);
+    }
 }

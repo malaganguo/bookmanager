@@ -35,14 +35,9 @@
                            AnchorPane.rightAnchor="0.0"
                            AnchorPane.topAnchor="0.0">
                     <panes>
-                        <TitledPane alignment="TOP_LEFT" text="类别管理">
-                            <VBox minHeight="100" spacing="10" styleClass="dark-theme">
-                                <Button styleClass="menu-btn" text="图书类别" onAction="#listType"/>
-                                <Button styleClass="menu-btn" text="分类统计" onAction="#listTypeAnalysis"/>
-                            </VBox>
-                        </TitledPane>
                         <TitledPane alignment="TOP_LEFT" text="图书管理">
-                            <VBox minHeight="130" spacing="10" styleClass="dark-theme">
+                            <VBox minHeight="170" spacing="10" styleClass="dark-theme">
+                                <Button styleClass="menu-btn" text="图书类别" onAction="#listType"/>
                                 <Button styleClass="menu-btn" text="图书信息" onAction="#listBook"/>
                                 <Button styleClass="menu-btn" text="图书浏览" onAction="#viewBook"/>
                                 <Button styleClass="menu-btn" text="统计分析" onAction="#listBookAnalysis"/>

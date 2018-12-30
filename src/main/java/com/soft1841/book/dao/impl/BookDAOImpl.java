@@ -83,6 +83,12 @@ public class BookDAOImpl implements BookDAO {
         return Db.use().queryNumber("SELECT COUNT(*) FROM t_book WHERE type_id = ? ", typeId).intValue();
     }
 
+    @Override
+    public int countBooks() throws SQLException {
+        return Db.use().queryNumber("SELECT COUNT(*) FROM t_book ").intValue();
+
+    }
+
     private Book convertBook(Entity entity) {
         Book book = new Book();
         book.setId(entity.getLong("id"));

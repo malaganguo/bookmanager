@@ -36,4 +36,10 @@ public class ReaderDAOTest {
         int count = readerDAO.countByDepartment("计算机与软件学院");
         System.out.println(count);
     }
+
+    @Test
+    public void countReaders() throws SQLException {
+        int count = readerDAO.countReaders();
+        System.out.println(count);
+    }
 }

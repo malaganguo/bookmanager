@@ -7,6 +7,7 @@ import com.soft1841.book.service.ReaderService;
 import com.soft1841.book.utils.DAOFactory;
 import com.soft1841.book.utils.ImageLoader;
 import com.soft1841.book.utils.ServiceFactory;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -32,6 +33,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * 读者信息控制器
@@ -41,6 +44,15 @@ public class ReaderController implements Initializable {
     private FlowPane readerPane;
     private ReaderService readerService = ServiceFactory.getReaderServiceInstance();
     private List<Reader> readerList = new ArrayList<>();
+
+
+    private static final int MAX_THREADS = 8;
+    //线程池配置
+    private final Executor exec = Executors.newFixedThreadPool(MAX_THREADS, runnable -> {
+        Thread t = new Thread(runnable);
+        t.setDaemon(true);
+        return t;
+    });
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -61,7 +73,15 @@ public class ReaderController implements Initializable {
             VBox leftBox = new VBox();
             leftBox.setAlignment(Pos.TOP_CENTER);
             leftBox.setSpacing(30);
-            ImageView imageView = new ImageView(new Image(reader.getAvatar()));
+            //开启一个线程，用来读取来自网络的头像
+            ImageView imageView = new ImageView();
+            //利用线程池来加载图片，并设置为读者头像
+            exec.execute(new Runnable() {
+                @Override
+                public void run() {
+                    imageView.setImage(new Image(reader.getAvatar()));
+                }
+            });
             imageView.setFitWidth(80);
             imageView.setFitHeight(80);
             Circle circle = new Circle();

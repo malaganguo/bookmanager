@@ -1,10 +1,7 @@
 package com.soft1841.book.controller;
 
-import cn.hutool.db.Entity;
-import com.soft1841.book.dao.BookDAO;
 import com.soft1841.book.entity.Book;
 import com.soft1841.book.service.BookService;
-import com.soft1841.book.utils.DAOFactory;
 import com.soft1841.book.utils.ServiceFactory;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -21,11 +18,11 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 public class ViewBookController implements Initializable {
     @FXML
@@ -34,6 +31,14 @@ public class ViewBookController implements Initializable {
     private List<Book> bookList;
 
     private BookService bookService = ServiceFactory.getBookServiceInstance();
+
+    private static final int MAX_THREADS = 4;
+    //线程池配置
+    private final Executor exec = Executors.newFixedThreadPool(MAX_THREADS, runnable -> {
+        Thread t = new Thread(runnable);
+        t.setDaemon(true);
+        return t;
+    });
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -50,9 +55,16 @@ public class ViewBookController implements Initializable {
             vBox.getStyleClass().add("box");
             vBox.setSpacing(10);
             vBox.setAlignment(Pos.CENTER);
-            ImageView imageView = new ImageView(new Image(book.getCover()));
+            ImageView imageView = new ImageView();
+            //利用线程池来加载图片，并设置为图书封面
+            exec.execute(new Runnable() {
+                @Override
+                public void run() {
+                    imageView.setImage(new Image(book.getCover()));
+                }
+            });
             imageView.setFitWidth(100);
-            imageView.setFitHeight(120);
+            imageView.setFitHeight(100);
             Label nameLabel = new Label(book.getName());
             nameLabel.getStyleClass().add("font-title");
             Label authorLabel = new Label("作者：" + book.getAuthor());

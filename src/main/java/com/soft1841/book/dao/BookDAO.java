@@ -56,6 +56,7 @@ public interface BookDAO {
 
     /**
      * 根据书名关键词模糊查询图书
+     *
      * @param keywords
      * @return
      * @throws SQLException
@@ -64,6 +65,7 @@ public interface BookDAO {
 
     /**
      * 根据图书类别查询图书
+     *
      * @param typeId
      * @return
      * @throws SQLException
@@ -72,9 +74,18 @@ public interface BookDAO {
 
     /**
      * 根据图书类别统计图书数量
+     *
      * @param typeId
      * @return
      * @throws SQLException
      */
     int countByType(long typeId) throws SQLException;
+
+    /**
+     * 统计图书总数
+     *
+     * @return
+     * @throws SQLException
+     */
+    int countBooks() throws SQLException;
 }

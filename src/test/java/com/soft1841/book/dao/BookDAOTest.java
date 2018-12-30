@@ -67,4 +67,10 @@ public class BookDAOTest {
         int n = bookDAO.countByType(1);
         System.out.println(n);
     }
+
+    @Test
+    public void countBooks() throws SQLException {
+        int count = bookDAO.countBooks();
+        System.out.println(count);
+    }
 }

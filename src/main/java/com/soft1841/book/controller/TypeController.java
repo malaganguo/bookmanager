@@ -4,6 +4,7 @@ import cn.hutool.db.Entity;
 import com.soft1841.book.dao.TypeDAO;
 import com.soft1841.book.entity.Type;
 import com.soft1841.book.service.TypeService;
+import com.soft1841.book.utils.ColorUtil;
 import com.soft1841.book.utils.ComponentUtil;
 import com.soft1841.book.utils.DAOFactory;
 import com.soft1841.book.utils.ServiceFactory;
@@ -13,6 +14,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.StackPane;
 
 import java.net.URL;
 import java.util.List;
@@ -23,6 +26,8 @@ public class TypeController implements Initializable {
     //获得布局文件中的表格对象
     @FXML
     private TableView<Type> typeTable;
+    @FXML
+    private FlowPane typePane;
 
     //定义ObservableList数据集合
     private ObservableList<Type> typeData = FXCollections.observableArrayList();
@@ -32,6 +37,7 @@ public class TypeController implements Initializable {
 
     //定义Type类型集合，用来存放数据库查询结果
     private List<Type> typeList;
+    ;
 
     private TableColumn<Type, Type> delCol = new TableColumn<>("操作");
 
@@ -44,6 +50,7 @@ public class TypeController implements Initializable {
         delCol.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         delCol.setCellFactory(param -> new TableCell<Type, Type>() {
             private final Button deleteButton = ComponentUtil.getButton("删除", "warning-theme");
+
             @Override
             protected void updateItem(Type type, boolean empty) {
                 super.updateItem(type, empty);
@@ -65,6 +72,7 @@ public class TypeController implements Initializable {
                         typeData.remove(type);
                         //调用typeService的删除类别方法
                         typeService.deleteType(type.getId());
+                        showTypePane();
                     }
                 });
             }
@@ -72,7 +80,10 @@ public class TypeController implements Initializable {
         //删除列加入表格
         typeTable.getColumns().add(delCol);
         typeList = typeService.getAllTypes();
+        //显示类别的表格数据
         showTypeData(typeList);
+        //显示类别的卡片展示
+        showTypePane();
     }
 
     public void addType() {
@@ -95,12 +106,46 @@ public class TypeController implements Initializable {
             type.setId(id);
             //加入ObservableList，刷新模型视图，不用重新查询数据库也可以立刻看到结果
             typeData.add(type);
+            showTypePane();
         }
     }
 
     private void showTypeData(List<Type> typeList) {
         typeData.addAll(typeList);
         typeTable.setItems(typeData);
+    }
+
+    private void showTypePane() {
+        typePane.getChildren().clear();
+        typeList = typeService.getAllTypes();
+        //遍历类别集合数据
+        for (Type type : typeList) {
+            //给每个类别创建一个面板
+            StackPane stackPane = new StackPane();
+            //添加外部box样式（边框、圆矩形）
+            stackPane.getStyleClass().add("box");
+            //设置合适大小
+            stackPane.setPrefSize(120, 120);
+            //通过工具类获取一个随机色值
+            String colorString = ColorUtil.getColor();
+            //给面板设置背景色
+            stackPane.setStyle("-fx-background-color: " + colorString);
+            //创建一个文本标签，内容为该类别的名称
+            Label typeNameLabel = new Label(type.getTypeName());
+            //给标签添加外部title样式
+            typeNameLabel.getStyleClass().add("title");
+            //标签加入面板
+            stackPane.getChildren().add(typeNameLabel);
+            //面板加入布局文件钟的流式布局
+            typePane.getChildren().add(stackPane);
+            //鼠标进入和离开，透明度变化效果
+            stackPane.setOnMouseEntered(event -> {
+                stackPane.setOpacity(0.5);
+            });
+            stackPane.setOnMouseExited(event -> {
+                stackPane.setOpacity(1.0);
+            });
+        }
     }
 
 }
