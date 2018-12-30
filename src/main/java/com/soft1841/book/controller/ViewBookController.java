@@ -65,6 +65,7 @@ public class ViewBookController implements Initializable {
             });
             imageView.setFitWidth(100);
             imageView.setFitHeight(100);
+            imageView.getStyleClass().add("hover-change");
             Label nameLabel = new Label(book.getName());
             nameLabel.getStyleClass().add("font-title");
             Label authorLabel = new Label("作者：" + book.getAuthor());

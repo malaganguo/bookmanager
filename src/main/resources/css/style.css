@@ -245,3 +245,8 @@
     -fx-padding: 0;
 }
 
+.hover-change:hover {
+    -fx-opacity: 0.5;
+}
+
+

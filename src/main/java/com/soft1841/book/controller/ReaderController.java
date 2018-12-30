@@ -89,6 +89,7 @@ public class ReaderController implements Initializable {
             circle.setCenterY(40.0);
             circle.setRadius(40.0);
             imageView.setClip(circle);
+            imageView.getStyleClass().add("hover-change");
             Label roleLabel = new Label(reader.getRole());
             leftBox.getChildren().addAll(imageView, roleLabel);
             //右边垂直布局放姓名、部门、邮箱、电话
