@@ -1,13 +1,8 @@
 package com.soft1841.book.controller;
 
-import cn.hutool.db.Entity;
-import com.soft1841.book.dao.ReaderDAO;
 import com.soft1841.book.entity.Reader;
 import com.soft1841.book.service.ReaderService;
-import com.soft1841.book.utils.DAOFactory;
-import com.soft1841.book.utils.ImageLoader;
 import com.soft1841.book.utils.ServiceFactory;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -16,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;

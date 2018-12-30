@@ -40,3 +40,9 @@
 ![](http://pkj7nme0f.bkt.clouddn.com/book/reader_analysis.png)
 - 新增读者
 ![](http://pkj7nme0f.bkt.clouddn.com/book/add_reader.png)
+
+**4.视频**
+[演示地址](http://pkj7nme0f.bkt.clouddn.com/book/book_manageV2.0.mp4)
+
+**5.项目地址**
+[https://github.com/mqxu/book-manage](https://github.com/mqxu/book-manage)
