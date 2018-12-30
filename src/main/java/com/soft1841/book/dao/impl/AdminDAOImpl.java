@@ -31,6 +31,14 @@ public class AdminDAOImpl implements AdminDAO {
         return Db.use().queryNumber("SELECT COUNT(*) FROM t_admin ").intValue();
     }
 
+    @Override
+    public int updateAdmin(Admin admin) throws SQLException {
+        return Db.use().update(
+                Entity.create().set("password", admin.getPassword()),
+                Entity.create("t_admin").set("id", admin.getId())
+        );
+    }
+
     /**
      * 封装一个将Entity转换为Admin的方法
      *

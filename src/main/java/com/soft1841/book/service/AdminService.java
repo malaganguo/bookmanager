@@ -26,4 +26,6 @@ public interface AdminService {
      * @return amdin
      */
     Admin getAdminByAccount(String account);
+
+    void updateAdmin(Admin admin);
 }

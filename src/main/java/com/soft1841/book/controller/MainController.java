@@ -36,6 +36,10 @@ public class MainController implements Initializable {
 
     public void setAdmin(Admin admin) {
         this.admin = admin;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         //开启一个UI线程 ,将登录界面传过来的管理员信息显示在主界面的右上角
         Platform.runLater(new Runnable() {
             @Override
@@ -52,10 +56,6 @@ public class MainController implements Initializable {
                 adminName.setText(admin.getName());
             }
         });
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
         //启一个线程，用来同步获取系统时间
         new Thread(new Runnable() {
             @Override
@@ -126,6 +126,15 @@ public class MainController implements Initializable {
 
     public void listReaderAnalysis() throws Exception {
         switchView("reader_analysis.fxml");
+    }
+
+    public void listPersonal() throws Exception {
+        mainContainer.getChildren().clear();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/personal.fxml"));
+        AnchorPane anchorPane = fxmlLoader.load();
+        mainContainer.getChildren().add(anchorPane);
+        PersonalController personalController = fxmlLoader.getController();
+        personalController.setAdmin(admin);
     }
 
     private void switchView(String fileName) throws Exception {

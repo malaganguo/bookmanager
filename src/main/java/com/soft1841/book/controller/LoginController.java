@@ -33,8 +33,8 @@ public class LoginController {
             //创建主界面舞台
             Stage mainStage = new Stage();
             //读入布局
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
-            BorderPane root = loader.load();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/main.fxml"));
+            BorderPane root = fxmlLoader.load();
             Scene scene = new Scene(root);
             scene.getStylesheets().add("/css/style.css");
             mainStage.setTitle("book manage system");
@@ -44,7 +44,7 @@ public class LoginController {
             mainStage.show();
             //将这个管理员信息传给主控制器
             Admin admin = adminService.getAdminByAccount(account);
-            MainController mainController = loader.getController();
+            MainController mainController = fxmlLoader.getController();
             mainController.setAdmin(admin);
             Stage loginStage = (Stage) accountField.getScene().getWindow();
             loginStage.close();

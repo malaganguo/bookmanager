@@ -28,4 +28,11 @@ public class AdminDAOTest {
         int count = adminDAO.countAdmins();
         System.out.println(count);
     }
+    @Test
+    public void updateAdmin()throws SQLException{
+        Admin admin = new Admin();
+        admin.setId(1L);
+        admin.setPassword("99999999");
+        adminDAO.updateAdmin(admin);
+    }
 }

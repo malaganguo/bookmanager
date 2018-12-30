@@ -15,4 +15,11 @@ public class AdminServiceTest {
         Admin admin = adminService.getAdminByAccount("aaa@qq.com");
         System.out.println(admin);
     }
+
+    @Test
+    public void updateAdmin() throws SQLException {
+        Admin admin = adminService.getAdminByAccount("aaa@qq.com");
+        admin.setPassword("88888888");
+        adminService.updateAdmin(admin);
+    }
 }

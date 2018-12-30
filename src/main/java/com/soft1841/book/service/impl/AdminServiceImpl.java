@@ -51,4 +51,15 @@ public class AdminServiceImpl implements AdminService {
         }
         return admin;
     }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+        try {
+            Admin admin1 = adminDAO.getAdminByAccount(admin.getAccount());
+            admin1.setPassword(admin.getPassword());
+            adminDAO.updateAdmin(admin1);
+        } catch (SQLException e) {
+            System.err.println("更新管理员信息出现异常");
+        }
+    }
 }

@@ -34,4 +34,6 @@ public interface AdminDAO {
      * @throws SQLException
      */
     int countAdmins() throws SQLException;
+
+    int updateAdmin(Admin admin) throws SQLException;
 }

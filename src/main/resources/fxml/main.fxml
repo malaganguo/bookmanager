@@ -58,7 +58,7 @@
                         </TitledPane>
                         <TitledPane alignment="TOP_LEFT" text="系统维护">
                             <VBox minHeight="130" spacing="10" styleClass="dark-theme">
-                                <Button styleClass="menu-btn" text="系统初始化"/>
+                                <Button styleClass="menu-btn" text="个人中心" onAction="#listPersonal"/>
                                 <Button styleClass="menu-btn" text="数据备份"/>
                                 <Button styleClass="menu-btn" text="主题设置"/>
                             </VBox>
